@@ -3,7 +3,7 @@ const shortid = require('shortid');
 
 module.exports.index = (req,res) => {
 	res.render('user/index', { users: db.get('users').value() });
-	console.log(req.cookies);
+	//console.log(req.cookies);
 };
 
 module.exports.search = (req,res) => {

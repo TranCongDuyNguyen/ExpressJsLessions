@@ -1,10 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const shortid = require('shortid');
 
 const db = require('./db.js');
-const userRoute = require('./routes/user.route.js');
 
+const userRoute = require('./routes/user.route.js');
+const authRoute = require('./routes/auth.route.js');
+
+const middlewares = require('./middlewares/auth.mdw.js');
 
 const app = express();
 const port = 3000;
@@ -12,10 +16,12 @@ app.listen(port, () => console.log('OK!'));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());
 
 app.set('views', './views');
 app.set('view engine', 'pug');
 
 app.get('/',(req,res) => res.render('index'));
 
-app.use('/user', userRoute);
+app.use('/user', middlewares.requireAuth, userRoute);
+app.use('/auth', authRoute);
