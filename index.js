@@ -9,6 +9,7 @@ const db = require('./db.js');
 
 const userRoute = require('./routes/user.route.js');
 const authRoute = require('./routes/auth.route.js');
+const productRoute = require('./routes/product.route.js');
 
 const middlewares = require('./middlewares/auth.mdw.js');
 
@@ -27,5 +28,5 @@ app.get('/',(req,res) => res.render('index'));
 
 app.use('/user', middlewares.requireAuth, userRoute);
 app.use('/auth', authRoute);
+app.use('/product', productRoute);
 
-console.log(process.env.secret);

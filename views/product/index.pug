@@ -1,0 +1,34 @@
+extends ../common
+block content
+	h1 Products
+	form(action="/user/search", method="GET", class="form-inline")
+		.form-group
+			input(type="text", name="q", class="form-control-sm ml-2")
+			button(class="btn-sm btn-primary ml-2") Search
+	.container
+		.row.mb-5
+			each product in products
+				.col-sm-3
+					.card(style='width: 16rem;')
+						img.card-img-top(src= product.image, alt='...')
+						.card-body
+							h5.card-title= product.name
+							p.card-text= product.description
+						a.btn.btn-primary(href='#') Add
+		.row
+			.col-sm-12
+				nav(aria-label='Page navigation example')
+					ul.pagination
+						li.page-item
+							a.page-link(href='http://localhost:3000/product?page=' + (page-1).toString()) Previous
+						if(page!==100)
+							li.page-item
+								a.page-link(href= 'http://localhost:3000/product?page=' + page.toString())= page.toString()
+							li.page-item
+								a.page-link(href= ('http://localhost:3000/product?page=' + (page+1).toString()))= (page+1).toString()
+							li.page-item
+								a.page-link(href='#') ...
+						li.page-item
+							a.page-link(href='http://localhost:3000/product?page=100') 100
+						li.page-item
+							a.page-link(href='http://localhost:3000/product?page=' + (page+1).toString()) Next

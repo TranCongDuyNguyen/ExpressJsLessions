@@ -1,4 +1,5 @@
 extends ../common
 block content
 	h1 User View
-	p= user.name
+	if(user)
+		p= user.name
