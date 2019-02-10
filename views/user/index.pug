@@ -1,0 +1,21 @@
+extends ./common
+block content
+		h1(class="mb-2 ml-5") Users
+
+		form(action="/user/search", method="GET", class="form-inline")
+			.form-group
+				input(type="text", name="q", class="form-control-sm ml-2")
+				button(class="btn-sm btn-primary ml-2") Search
+		a.btn.btn-primary(href="/user/create") New
+		table.table
+			tr
+				th Name
+				th Phone
+				th Actions
+			each user in users
+				tr
+				td= user.name 
+				td= user.phone
+				td
+					a(href="/user/" + user.id) View
+
