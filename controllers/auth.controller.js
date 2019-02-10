@@ -22,6 +22,6 @@ module.exports.loginPost = (req, res) => {
 		res.render("auth/login", {errors: errors, values: req.body});
 		return;
 	}
-	res.cookie("sessionId", user.id);
+	res.cookie("sessionId", user.id, {signed: true});
 	res.redirect("/user");
 }

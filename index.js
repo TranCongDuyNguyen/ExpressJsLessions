@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -16,7 +18,7 @@ app.listen(port, () => console.log('OK!'));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
+app.use(cookieParser('askndaskjndakndakdnasdjn'));
 
 app.set('views', './views');
 app.set('view engine', 'pug');
@@ -25,3 +27,5 @@ app.get('/',(req,res) => res.render('index'));
 
 app.use('/user', middlewares.requireAuth, userRoute);
 app.use('/auth', authRoute);
+
+console.log(process.env.secret);
