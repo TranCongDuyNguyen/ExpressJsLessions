@@ -5,6 +5,7 @@ const shortid = require('shortid');
 const db = require('./db.js');
 const userRoute = require('./routes/user.route.js');
 
+
 const app = express();
 const port = 3000;
 app.listen(port, () => console.log('OK!'));
@@ -15,6 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.get('/',(req,res) => res.render('index', {name: 'Nguyen'}));
+app.get('/',(req,res) => res.render('index'));
 
 app.use('/user', userRoute);
