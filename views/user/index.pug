@@ -9,13 +9,16 @@ block content
 		a.btn.btn-primary(href="/user/create") New
 		table.table
 			tr
+				th Avatar
 				th Name
 				th Phone
 				th Actions
 			each user in users
 				tr
-				td= user.name 
-				td= user.phone
-				td
-					a(href="/user/" + user.id) View
+					td
+						img(src= user.avatar, width= "80rem", height= "60rem")
+					td= user.name 
+					td= user.phone
+					td
+						a(href="/user/" + user.id) View
 

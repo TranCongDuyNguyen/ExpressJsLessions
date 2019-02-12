@@ -5,11 +5,13 @@ block content
 		each error in errors
 			.alert.alert-primary(role='alert')= error
 
-	form(action="/user/create", method="POST")
+	form(action="/user/create", method="POST", enctype="multipart/form-data")
 		.form-group
 			label(for="name") Name
 			input#name(name="name", type="text", class="form-control ml-2", value= values?values.name:"")
 		.form-group
 			label(for="phone") Phone
 			input#phone(name="phone", type="text", class="form-control ml-2", value= values?values.phone:"")
+		.form-group
+			input#avatar(name="avatar", type="file", class="ml-2")
 		button(class="btn-sm btn-primary ml-2") Create

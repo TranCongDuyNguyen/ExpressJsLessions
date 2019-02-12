@@ -1,7 +1,10 @@
 var express = require('express');
+var multer  = require('multer')
 var router = express.Router();
 const cookieParser = require('cookie-parser');
 
+
+var upload = multer({ dest: './public/uploads/' })
 router.use(cookieParser()); 
 
 const controllers = require('../controllers/user.controller.js');
@@ -17,7 +20,11 @@ router.get('/create', controllers.getCreate);
 router.get('/:id', controllers.viewUser);
 
 
-router.post('/create', validates.postCreate, controllers.postCreate);
+router.post('/create',
+	upload.single('avatar'),
+	validates.postCreate,
+	controllers.postCreate
+);
 
 
 module.exports = router;
