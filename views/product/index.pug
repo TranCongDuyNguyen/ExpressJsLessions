@@ -1,34 +1,65 @@
-extends ../common
-block content
-	h1 Products
-	form(action="/user/search", method="GET", class="form-inline")
-		.form-group
-			input(type="text", name="q", class="form-control-sm ml-2")
-			button(class="btn-sm btn-primary ml-2") Search
-	.container
-		.row.mb-5
-			each product in products
-				.col-sm-3
-					.card(style='width: 16rem;')
-						img.card-img-top(src= product.image, alt='...')
-						.card-body
-							h5.card-title= product.name
-							p.card-text= product.description
-						a.btn.btn-primary(href='/product/addtocart/' + product.id) Add to cart
-		.row
-			.col-sm-12
-				nav(aria-label='Page navigation example')
-					ul.pagination
-						li.page-item
-							a.page-link(href='http://localhost:3000/product?page=' + (page-1).toString()) Previous
-						if(page!==100)
-							li.page-item
-								a.page-link(href= 'http://localhost:3000/product?page=' + page.toString())= page.toString()
-							li.page-item
-								a.page-link(href= ('http://localhost:3000/product?page=' + (page+1).toString()))= (page+1).toString()
-							li.page-item
-								a.page-link(href='#') ...
-						li.page-item
-							a.page-link(href='http://localhost:3000/product?page=100') 100
-						li.page-item
-							a.page-link(href='http://localhost:3000/product?page=' + (page+1).toString()) Next
+//-common.pug
+html
+	head
+		link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css")
+	body
+		nav.navbar.navbar-expand-lg.navbar-light.bg-light
+			a.navbar-brand(href='#') Coders.Tokyo
+			button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+				span.navbar-toggler-icon
+			#navbarSupportedContent.collapse.navbar-collapse
+				ul.navbar-nav.mr-auto
+					li.nav-item.active
+						a.nav-link(href='/')
+							| Home 
+							span.sr-only (current)
+					li.nav-item
+					if !cartcount
+						-var count= 0
+					else
+						-var count= cartcount.toString()
+						a.nav-link(href='#')= "| Cart: " + count
+					li.nav-item.dropdown
+						a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', 
+						data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+							| Dropdown
+						.dropdown-menu(aria-labelledby='navbarDropdown')
+							a.dropdown-item(href='/user/create') Create user
+							a.dropdown-item(href='#') Something else here
+							.dropdown-divider
+							a.dropdown-item(href='/user') User page
+			if(user)
+				p= user.name
+		.container
+			h1 Products
+			form(action="/user/search", method="GET", class="form-inline")
+				.form-group
+					input(type="text", name="q", class="form-control-sm ml-2")
+					button(class="btn-sm btn-primary ml-2") Search
+			.container
+				.row.mb-5
+					each product in products
+						.col-sm-3
+							.card(style='width: 16rem;')
+								img.card-img-top(src= product.image, alt='...')
+								.card-body
+									h5.card-title= product.name
+									p.card-text= product.description
+								a.btn.btn-primary(href='/product/addtocart/' + product.id) Add to cart
+				.row
+					.col-sm-12
+						nav(aria-label='Page navigation example')
+							ul.pagination
+								li.page-item
+									a.page-link(href='http://localhost:3000/product?page=' + (page-1).toString()) Previous
+								if(page!==100)
+									li.page-item
+										a.page-link(href= 'http://localhost:3000/product?page=' + page.toString())= page.toString()
+									li.page-item
+										a.page-link(href= ('http://localhost:3000/product?page=' + (page+1).toString()))= (page+1).toString()
+									li.page-item
+										a.page-link(href='#') ...
+								li.page-item
+									a.page-link(href='http://localhost:3000/product?page=100') 100
+								li.page-item
+									a.page-link(href='http://localhost:3000/product?page=' + (page+1).toString()) Next
