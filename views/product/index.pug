@@ -14,7 +14,7 @@ block content
 						.card-body
 							h5.card-title= product.name
 							p.card-text= product.description
-						a.btn.btn-primary(href='#') Add
+						a.btn.btn-primary(href='/product/addtocart/' + product.id) Add to cart
 		.row
 			.col-sm-12
 				nav(aria-label='Page navigation example')
@@ -31,4 +31,4 @@ block content
 						li.page-item
 							a.page-link(href='http://localhost:3000/product?page=100') 100
 						li.page-item
-							a.page-link(href='http://localhost:3000/product?page=' + (page+1).toString())Next
+							a.page-link(href='http://localhost:3000/product?page=' + (page+1).toString()) Next

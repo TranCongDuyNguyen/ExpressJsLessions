@@ -8,7 +8,9 @@ module.exports.index = (req,res) => {
 
 module.exports.search = (req,res) => {
 	var q = req.query.q; //req.query is an object with a pair key-value: q-value, query is a part of path which come after '?'
-	var matchedUsers = db.get('users').value().filter(x => x.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+	var matchedUsers = db.get('users')
+							.value()
+							.filter(x => x.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
 	res.render('user/index',{users: matchedUsers});
 };
 

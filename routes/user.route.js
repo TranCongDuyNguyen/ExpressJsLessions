@@ -1,11 +1,11 @@
 var express = require('express');
 var multer  = require('multer')
 var router = express.Router();
-const cookieParser = require('cookie-parser');
+//const cookieParser = require('cookie-parser');
 
 
 var upload = multer({ dest: './public/uploads/' })
-router.use(cookieParser()); 
+//router.use(cookieParser()); 
 
 const controllers = require('../controllers/user.controller.js');
 
