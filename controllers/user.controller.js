@@ -29,6 +29,6 @@ module.exports.postCreate = (req,res) => {
 
 	db.get('users').push(req.body).write();
 	res.redirect('/user');
-	console.log(res.locals.success);
+
 };
 

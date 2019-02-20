@@ -31,5 +31,5 @@ app.get('/',(req,res) => res.render('index'));
 
 app.use('/user', authMiddleware.requireAuth, userRoute);
 app.use('/auth', authRoute);
-app.use('/product', productRoute);
+app.use('/product', sessionMiddleware, productRoute);
 

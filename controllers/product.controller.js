@@ -39,7 +39,7 @@ module.exports.addToCart = (req, res) => {
 	var currentSession = db.get("session")
 			.find({sessionId: sessionId})
 			.value();
-
+	
 	var currentCart = currentSession.cart;
 	ccount = 0;
 

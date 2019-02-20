@@ -18,16 +18,16 @@ html
 						-var count= 0
 					else
 						-var count= cartcount.toString()
-						a.nav-link(href='#')= "| Cart: " + count
-					li.nav-item.dropdown
-						a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', 
-						data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-							| Dropdown
-						.dropdown-menu(aria-labelledby='navbarDropdown')
-							a.dropdown-item(href='/user/create') Create user
-							a.dropdown-item(href='#') Something else here
-							.dropdown-divider
-							a.dropdown-item(href='/user') User page
+					a.nav-link(href='#')= "| Cart: " + count
+				li.nav-item.dropdown
+					a#navbarDropdown.nav-link.dropdown-toggle(href='#', role='button', 
+					data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+						| Dropdown
+					.dropdown-menu(aria-labelledby='navbarDropdown')
+						a.dropdown-item(href='/user/create') Create user
+						a.dropdown-item(href='#') Something else here
+						.dropdown-divider
+						a.dropdown-item(href='/user') User page
 			if(user)
 				p= user.name
 		.container

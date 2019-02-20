@@ -5,9 +5,10 @@ module.exports.postCreate = (req, res, next) => {
 	if(!req.body.phone)
 		errors.push('Please enter your phone');
 	if(errors.length){
-		res.render('user/create', {errors: errors, values: req.body});
+		res.render('user/create', {errors: errors, 
+									values: req.body}); // keep displaying name, phone after reloading page
 		return;
 	}
-	res.locals.success = "this is successful transiton variable between 2 middlewares";
+	
 	next();
 }
