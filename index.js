@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const shortid = require('shortid');
 const csurf =require('csurf');
+const mongoose = require('mongoose');
 
 const db = require('./db.js');
 
@@ -24,16 +25,18 @@ app.use(express.static('public'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cookieParser('askndaskjndakndakdnasdjn'));
-app.use(sessionMiddleware);
+app.use(sessionMiddleware.func);
 app.use(csurf({ cookie: true })); // this function should be used after cookie-parser initalization
 
 app.set('views', './views');
 app.set('view engine', 'pug');
 
-app.get('/',(req,res) => res.render('index'));
+mongoose.connect(process.env.mongo_url);
 
-app.use('/user', authMiddleware.requireAuth, userRoute);
+//app.get('/',(req,res) => res.render('index'));
+
+app.use('/user', authMiddleware.requireAuth,  userRoute);
 app.use('/auth', authRoute);
-app.use('/product', sessionMiddleware, productRoute);
+app.use('/product', sessionMiddleware.func, productRoute);
 app.use('/transfer', authMiddleware.requireAuth, transferRoute);
 

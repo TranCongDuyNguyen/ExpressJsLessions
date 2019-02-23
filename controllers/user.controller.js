@@ -1,16 +1,15 @@
-const db = require('../db.js');
-const shortid = require('shortid');
+const User = require('../models/users.model');
 
-module.exports.index = (req,res) => {
-	res.render('user/index', { users: db.get('users').value() });
+module.exports.index = async function(req,res){
+	var users = await User.find();
+	res.render('user/index', { users: users });
 	//console.log(req.cookies);
 };
 
-module.exports.search = (req,res) => {
+module.exports.search = async function(req,res){
 	var q = req.query.q; //req.query is an object with a pair key-value: q-value, query is a part of path which come after '?'
-	var matchedUsers = db.get('users')
-							.value()
-							.filter(x => x.name.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+	var users = await User.find();
+	var matchedUsers = users.filter( x => x.name.toLowerCase().indexOf(q.toLowerCase()) !== -1); 
 	res.render('user/index',{users: matchedUsers});
 };
 
@@ -18,17 +17,16 @@ module.exports.getCreate = (req,res) => {
 	res.render('user/create');
 };
 
-module.exports.viewUser = (req,res) => {
+module.exports.viewUser = async function(req,res){
 	var id = req.params.id;
-	res.render('user/view',{user: db.get('users').find({id: id}).value()});
+	var users = await User.findById(id);
+	res.render('user/view',{user: users});
 };
 
-module.exports.postCreate = (req,res) => {
-	req.body.id = shortid.generate();
+module.exports.postCreate = async function(req,res){
+	//req.body.id = shortid.generate();
 	req.body.avatar = req.file.path.split("\\").slice(1).join("/");
-
-	db.get('users').push(req.body).write();
+	User.create(req.body);
 	res.redirect('/user');
-
 };
 

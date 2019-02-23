@@ -1,4 +1,5 @@
-db = require("../db.js");
+
+const Transfer = require("../models/transfers.model");
 
 const shortid = require('shortid');
 
@@ -9,14 +10,12 @@ module.exports.index = (req, res) => {
 	});
 }
 
-module.exports.postCreate = (req, res) => {
-	req.body.id = shortid.generate();
+module.exports.postCreate = async function(req, res){ 
 	var data = {
-		"id": req.body.id,
 		"account": req.body.account,
 		"amount": parseInt(req.body.amount),
 		"userId": req.signedCookies.sessionId
-	}
-	db.get("transfer").push(data).write();
+	};
+	await Transfer.create(data);
 	res.render("transfer/create");
 }
